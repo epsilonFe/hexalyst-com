@@ -1,0 +1,28 @@
+/* 
+  Security and caching headers for Hexalyst
+*/
+
+/* Global security headers for all paths */
+/
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  X-Robots-Tag: index, follow
+  Content-Security-Policy: default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self'
+  Cache-Control: public, max-age=0, must-revalidate
+
+/* Long cache for static assets that change infrequently */
+  /assets/*
+    Cache-Control: public, max-age=31536000, immutable
+
+  /css/*
+    Cache-Control: public, max-age=31536000, immutable
+
+  /assets/*.svg
+    Cache-Control: public, max-age=31536000, immutable
+
+/* Ensure preview pages on pages.dev are not indexed */
+  https://*.pages.dev/*
+    X-Robots-Tag: noindex
