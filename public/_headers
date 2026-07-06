@@ -1,6 +1,4 @@
-/* 
-  Security and caching headers for Hexalyst
-*/
+# Security and caching headers for Hexalyst
 
 /* Global security headers for all paths */
 /
@@ -9,20 +7,26 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  X-Robots-Tag: index, follow
+  X-Robots-Tag: noindex, follow
   Content-Security-Policy: default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src 'self'
   Cache-Control: public, max-age=0, must-revalidate
 
-/* Long cache for static assets that change infrequently */
-  /assets/*
-    Cache-Control: public, max-age=31536000, immutable
+# Long cache for static assets that change infrequently
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
 
-  /css/*
-    Cache-Control: public, max-age=31536000, immutable
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
 
-  /assets/*.svg
-    Cache-Control: public, max-age=31536000, immutable
+/assets/*.svg
+  Cache-Control: public, max-age=31536000, immutable
 
-/* Ensure preview pages on pages.dev are not indexed */
-  https://*.pages.dev/*
-    X-Robots-Tag: noindex
+# Ensure preview pages on pages.dev are not indexed
+https://*.pages.dev/*
+  X-Robots-Tag: noindex
+
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/  # root (explicit root block if you want different CSP for root)
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; script-src 'self'
